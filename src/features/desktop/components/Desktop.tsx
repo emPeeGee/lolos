@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { FolderIcon } from './FolderIcon';
-import { FileIcon } from './FileIcon';
+import { IconFactory } from './IconFactory';
+import { Icon } from '@/types';
 
-const desktopItems = [
+// TODO: Replace with jotai
+
+const desktopIcons: Icon[] = [
   { id: 1, name: 'Folder 1', type: 'folder' },
   { id: 2, name: 'File 1', type: 'file' },
   { id: 3, name: 'Folder 2', type: 'folder' },
@@ -33,23 +35,15 @@ function Desktop() {
       onClick={(event) => handleIconClick(event, null)}
     >
       <div className="grid grid-cols-8 gap-4">
-        {desktopItems.map((item) =>
-          item.type === 'folder' ? (
-            <FolderIcon
-              onClick={(event) => handleIconClick(event, item.id)}
-              key={item.id}
-              name={item.name}
-              isSelected={selectedIcons.includes(item.id)}
-            />
-          ) : (
-            <FileIcon
-              onClick={(event) => handleIconClick(event, item.id)}
-              key={item.id}
-              name={item.name}
-              isSelected={selectedIcons.includes(item.id)}
-            />
-          ),
-        )}
+        {desktopIcons.map((item) => (
+          <IconFactory
+            key={item.id}
+            type={item.type}
+            name={item.name}
+            isSelected={selectedIcons.includes(item.id)}
+            onClick={(event) => handleIconClick(event, item.id)}
+          />
+        ))}
       </div>
     </div>
   );

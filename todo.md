@@ -3,3 +3,4 @@
 3. [ ] Drag folders/files on desktop
 4. [ ] Click outside removes selected
 5. [ ] Handle keyboard event like enter, arrows
+6. [ ] Icon as a standalone feature
