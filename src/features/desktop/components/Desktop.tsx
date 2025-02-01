@@ -1,4 +1,4 @@
-import { DesktopIcons } from './DesktopIcons';
+import { DesktopIcons } from './DesktopIcons/DesktopIcons';
 
 function Desktop() {
   return (

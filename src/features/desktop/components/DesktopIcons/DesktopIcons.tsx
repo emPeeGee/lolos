@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { desktopIconsAtom, selectedIconsAtom } from '../store/desktopAtoms';
+import { desktopIconsAtom, selectedIconsAtom } from '../../store/desktopAtoms';
 import { IconFactory } from './IconFactory';
 
 export function DesktopIcons() {
