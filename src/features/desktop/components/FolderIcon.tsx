@@ -7,7 +7,14 @@ interface FolderIconProps {
 
 export function FolderIcon({ name, isSelected, onClick, onDoubleClick }: FolderIconProps) {
   return (
-    <div className={`flex flex-col items-center `} onClick={onClick} onDoubleClick={onDoubleClick}>
+    <div
+      className={`flex flex-col items-center `}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      onDoubleClick={onDoubleClick}
+    >
       <img
         src="src/assets/images/folder.png"
         alt={name}

@@ -11,15 +11,19 @@ const folderIcons = [
   { id: 7, name: 'Icon 7' },
   { id: 8, name: 'Icon 8' },
 ];
+
 function Desktop() {
   const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
 
-  const handleIconClick = (id: number) => {
+  const handleIconClick = (id: number | null) => {
     setSelectedIcon(id);
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center bg-[url(assets/images/wallpaper.png)] bg-cover bg-center">
+    <div
+      className="h-screen w-screen flex flex-col items-center bg-[url(assets/images/wallpaper.png)] bg-cover bg-center"
+      onClick={() => handleIconClick(null)}
+    >
       <div className="grid grid-cols-8 gap-4">
         {folderIcons.map((icon) => (
           <FolderIcon
