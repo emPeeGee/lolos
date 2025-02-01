@@ -1,16 +1,17 @@
 import { Icon } from './Icon';
+import { Icon as IconType } from '@/types';
 
 interface FileIconProps {
-  name: string;
+  icon: IconType;
   isSelected: boolean;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onDoubleClick?: () => void;
 }
 
-export function FileIcon({ name, isSelected, onClick, onDoubleClick }: FileIconProps) {
+export function FileIcon({ icon, isSelected, onClick, onDoubleClick }: FileIconProps) {
   return (
     <Icon
-      name={name}
+      icon={icon}
       isSelected={isSelected}
       onClick={onClick}
       onDoubleClick={onDoubleClick}

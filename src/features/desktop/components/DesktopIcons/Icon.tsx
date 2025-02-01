@@ -1,14 +1,17 @@
+import { Icon as IconType } from '@/types';
+
 type IconProps = {
-  name: string;
+  icon: IconType;
   isSelected: boolean;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onDoubleClick?: () => void;
   src: string;
 };
 
-export function Icon({ name, isSelected, onClick, onDoubleClick, src }: IconProps) {
+export function Icon({ icon: { id, name }, isSelected, onClick, onDoubleClick, src }: IconProps) {
   return (
     <div
+      id={`icon-${id}`}
       className={`flex flex-col items-center`}
       onClick={(e) => {
         e.stopPropagation();

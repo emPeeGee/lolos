@@ -50,14 +50,12 @@ export function DesktopIcons() {
       onClick={(event) => handleIconClick(event, null)}
     >
       <div className="grid grid-cols-8 gap-4">
-        {desktopIcons.map((item) => (
+        {desktopIcons.map((icon) => (
           <IconFactory
-            id={item.id}
-            key={item.id}
-            type={item.type}
-            name={item.name}
-            isSelected={selectedIcons.includes(item.id)}
-            onClick={(event) => handleIconClick(event, item.id)}
+            icon={icon}
+            key={icon.id}
+            isSelected={selectedIcons.includes(icon.id)}
+            onClick={(event) => handleIconClick(event, icon.id)}
           />
         ))}
       </div>

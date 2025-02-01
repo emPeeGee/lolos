@@ -1,6 +1,6 @@
 import { FolderIcon } from './FolderIcon';
 import { FileIcon } from './FileIcon';
-import { IconType } from '@/types';
+import { Icon } from '@/types';
 
 const iconComponents = {
   folder: FolderIcon,
@@ -8,15 +8,14 @@ const iconComponents = {
 };
 
 interface IconFactoryProps {
-  type: IconType;
-  name: string;
+  icon: Icon;
   isSelected: boolean;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onDoubleClick?: () => void;
 }
 
-export function IconFactory({ type, name, isSelected, onClick, onDoubleClick }: IconFactoryProps) {
-  const IconComponent = iconComponents[type];
+export function IconFactory({ icon, isSelected, onClick, onDoubleClick }: IconFactoryProps) {
+  const IconComponent = iconComponents[icon.type];
 
   if (!IconComponent) {
     return null;
@@ -24,7 +23,7 @@ export function IconFactory({ type, name, isSelected, onClick, onDoubleClick }: 
 
   return (
     <IconComponent
-      name={name}
+      icon={icon}
       isSelected={isSelected}
       onClick={onClick}
       onDoubleClick={onDoubleClick}

@@ -1,16 +1,17 @@
 import { Icon } from './Icon';
+import { Icon as IconType } from '@/types';
 
 interface FolderIconProps {
-  name: string;
+  icon: IconType;
   isSelected: boolean;
   onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onDoubleClick?: () => void;
 }
 
-export function FolderIcon({ name, isSelected, onClick, onDoubleClick }: FolderIconProps) {
+export function FolderIcon({ icon, isSelected, onClick, onDoubleClick }: FolderIconProps) {
   return (
     <Icon
-      name={name}
+      icon={icon}
       isSelected={isSelected}
       onClick={onClick}
       onDoubleClick={onDoubleClick}
