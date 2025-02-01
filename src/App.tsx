@@ -1,4 +1,4 @@
-import Desktop from './features/desktop/components/Desktop';
+import { Desktop } from './features/desktop';
 
 function App() {
   return (
