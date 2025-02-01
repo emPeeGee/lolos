@@ -4,29 +4,40 @@ import { IconFactory } from './IconFactory';
 import { MarqueeSelection } from '../MarqueeSelection';
 
 export function DesktopIcons() {
-  const { desktopIcons, selectedIcons, setSelectedIcons, addSelectedIcon, clearSelectedIcons } =
-    useDesktopStore();
+  const {
+    desktopIcons,
+    selectedIcons,
+    setSelectedIcons,
+    addSelectedIcon,
+    clearSelectedIcons,
+    selectIconsInRectangle,
+  } = useDesktopStore();
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectionStart, setSelectionStart] = useState({ x: 0, y: 0 });
   const [selectionEnd, setSelectionEnd] = useState({ x: 0, y: 0 });
 
   const handleMouseDown = (event: React.MouseEvent) => {
+    event.preventDefault();
     setIsSelecting(true);
     setSelectionStart({ x: event.clientX, y: event.clientY });
     setSelectionEnd({ x: event.clientX, y: event.clientY });
+    clearSelectedIcons();
   };
 
   const handleMouseMove = (event: React.MouseEvent) => {
     if (isSelecting) {
+      event.preventDefault();
       setSelectionEnd({ x: event.clientX, y: event.clientY });
     }
   };
 
   const handleMouseUp = () => {
     setIsSelecting(false);
+    selectIconsInRectangle(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y);
   };
 
   const handleIconClick = (event: React.MouseEvent, id: number | null) => {
+    event.stopPropagation();
     if (!id) {
       if (!event.shiftKey) {
         clearSelectedIcons();
@@ -48,6 +59,7 @@ export function DesktopIcons() {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onClick={(event) => handleIconClick(event, null)}
+      style={{ userSelect: isSelecting ? 'none' : 'auto' }}
     >
       <div className="grid grid-cols-8 gap-4">
         {desktopIcons.map((icon) => (

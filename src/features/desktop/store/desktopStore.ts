@@ -10,11 +10,12 @@ interface DesktopState {
   addSelectedIcon: (id: number) => void;
   removeSelectedIcon: (id: number) => void;
   clearSelectedIcons: () => void;
+  selectIconsInRectangle: (startX: number, startY: number, endX: number, endY: number) => void;
 }
 
 export const useDesktopStore = create<DesktopState>()(
   devtools(
-    (set) => ({
+    (set, get) => ({
       desktopIcons: [
         { id: 1, name: 'Folder 1', type: 'folder' },
         { id: 2, name: 'File 1', type: 'file' },
@@ -37,6 +38,24 @@ export const useDesktopStore = create<DesktopState>()(
           'removeSelectedIcon',
         ),
       clearSelectedIcons: () => set({ selectedIcons: [] }, undefined, 'clearSelectedIcons'),
+      selectIconsInRectangle: (startX, startY, endX, endY) => {
+        const { desktopIcons } = get();
+        const selectedIcons = desktopIcons
+          .filter((icon) => {
+            const iconElement = document.getElementById(`icon-${icon.id}`);
+            if (!iconElement) return false;
+            const rect = iconElement.getBoundingClientRect();
+            return (
+              rect.left >= Math.min(startX, endX) &&
+              rect.right <= Math.max(startX, endX) &&
+              rect.top >= Math.min(startY, endY) &&
+              rect.bottom <= Math.max(startY, endY)
+            );
+          })
+          .map((icon) => icon.id);
+        console.log(selectedIcons);
+        set({ selectedIcons }, undefined, 'selectIconsInRectangle');
+      },
     }),
     { name: 'DesktopStore', store: 'DesktopStore' },
   ),

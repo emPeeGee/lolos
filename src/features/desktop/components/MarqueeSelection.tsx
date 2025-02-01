@@ -16,10 +16,7 @@ export function MarqueeSelection({ startX, startY, endX, endY }: MarqueeSelectio
     top,
     width,
     height,
-    position: 'absolute' as unknown as 'absolute',
-    border: '1px dashed #000',
-    backgroundColor: 'rgba(0, 0, 255, 0.1)', // TODO: color
   };
 
-  return <div style={style} />;
+  return <div className="absolute border-1 border-black bg-black/10 select-none" style={style} />;
 }

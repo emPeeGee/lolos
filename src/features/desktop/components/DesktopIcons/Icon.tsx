@@ -24,7 +24,9 @@ export function Icon({ icon: { id, name }, isSelected, onClick, onDoubleClick, s
         alt={name}
         className={`h-16 mb-1 bg-contain bg-center ${isSelected ? 'bg-blue-500' : ''}`}
       />
-      <div className={`w-fit text-center text-white ${isSelected ? 'bg-blue-500' : ''}`}>
+      <div
+        className={`w-fit text-center text-white ${isSelected ? 'bg-blue-500' : ''} select-none`}
+      >
         <span>{name}</span>
       </div>
     </div>
