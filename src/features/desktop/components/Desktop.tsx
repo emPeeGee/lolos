@@ -1,18 +1,10 @@
-import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { desktopIconsAtom, selectedIconsAtom } from '../store/desktopAtoms';
 import { IconFactory } from './IconFactory';
-import { Icon } from '@/types';
-
-// TODO: Replace with jotai
-
-const desktopIcons: Icon[] = [
-  { id: 1, name: 'Folder 1', type: 'folder' },
-  { id: 2, name: 'File 1', type: 'file' },
-  { id: 3, name: 'Folder 2', type: 'folder' },
-  { id: 4, name: 'File 2', type: 'file' },
-];
 
 function Desktop() {
-  const [selectedIcons, setSelectedIcons] = useState<number[]>([]);
+  const [desktopIcons] = useAtom(desktopIconsAtom);
+  const [selectedIcons, setSelectedIcons] = useAtom(selectedIconsAtom);
 
   const handleIconClick = (event: React.MouseEvent, id: number | null) => {
     if (!id) {
