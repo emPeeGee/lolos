@@ -1,9 +1,30 @@
+import { useState } from 'react';
 import { useDesktopStore } from '../../store/desktopStore';
 import { IconFactory } from './IconFactory';
+import { MarqueeSelection } from '../MarqueeSelection';
 
 export function DesktopIcons() {
   const { desktopIcons, selectedIcons, setSelectedIcons, addSelectedIcon, clearSelectedIcons } =
     useDesktopStore();
+  const [isSelecting, setIsSelecting] = useState(false);
+  const [selectionStart, setSelectionStart] = useState({ x: 0, y: 0 });
+  const [selectionEnd, setSelectionEnd] = useState({ x: 0, y: 0 });
+
+  const handleMouseDown = (event: React.MouseEvent) => {
+    setIsSelecting(true);
+    setSelectionStart({ x: event.clientX, y: event.clientY });
+    setSelectionEnd({ x: event.clientX, y: event.clientY });
+  };
+
+  const handleMouseMove = (event: React.MouseEvent) => {
+    if (isSelecting) {
+      setSelectionEnd({ x: event.clientX, y: event.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsSelecting(false);
+  };
 
   const handleIconClick = (event: React.MouseEvent, id: number | null) => {
     if (!id) {
@@ -21,10 +42,17 @@ export function DesktopIcons() {
   };
 
   return (
-    <div className="h-screen w-screen" onClick={(event) => handleIconClick(event, null)}>
+    <div
+      className="h-screen w-screen relative"
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onClick={(event) => handleIconClick(event, null)}
+    >
       <div className="grid grid-cols-8 gap-4">
         {desktopIcons.map((item) => (
           <IconFactory
+            id={item.id}
             key={item.id}
             type={item.type}
             name={item.name}
@@ -33,6 +61,14 @@ export function DesktopIcons() {
           />
         ))}
       </div>
+      {isSelecting && (
+        <MarqueeSelection
+          startX={selectionStart.x}
+          startY={selectionStart.y}
+          endX={selectionEnd.x}
+          endY={selectionEnd.y}
+        />
+      )}
     </div>
   );
 }
