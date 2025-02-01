@@ -1,21 +1,20 @@
-import { useAtom } from 'jotai';
-import { desktopIconsAtom, selectedIconsAtom } from '../../store/desktopAtoms';
+import { useDesktopStore } from '../../store/desktopStore';
 import { IconFactory } from './IconFactory';
 
 export function DesktopIcons() {
-  const [desktopIcons] = useAtom(desktopIconsAtom);
-  const [selectedIcons, setSelectedIcons] = useAtom(selectedIconsAtom);
+  const { desktopIcons, selectedIcons, setSelectedIcons, addSelectedIcon, clearSelectedIcons } =
+    useDesktopStore();
 
   const handleIconClick = (event: React.MouseEvent, id: number | null) => {
     if (!id) {
       if (!event.shiftKey) {
-        setSelectedIcons([]);
+        clearSelectedIcons();
       }
       return;
     }
 
     if (event.shiftKey) {
-      setSelectedIcons((icons) => (icons.includes(id) ? icons : [...icons, id]));
+      addSelectedIcon(id);
     } else {
       setSelectedIcons([id]);
     }
