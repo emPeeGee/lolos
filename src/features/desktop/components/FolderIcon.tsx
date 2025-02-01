@@ -1,7 +1,7 @@
 interface FolderIconProps {
   name: string;
   isSelected: boolean;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onDoubleClick?: () => void;
 }
 
@@ -11,7 +11,7 @@ export function FolderIcon({ name, isSelected, onClick, onDoubleClick }: FolderI
       className={`flex flex-col items-center `}
       onClick={(e) => {
         e.stopPropagation();
-        onClick();
+        onClick(e);
       }}
       onDoubleClick={onDoubleClick}
     >

@@ -13,24 +13,35 @@ const folderIcons = [
 ];
 
 function Desktop() {
-  const [selectedIcon, setSelectedIcon] = useState<number | null>(null);
+  const [selectedIcons, setSelectedIcons] = useState<number[]>([]);
 
-  const handleIconClick = (id: number | null) => {
-    setSelectedIcon(id);
+  const handleIconClick = (event: React.MouseEvent, id: number | null) => {
+    if (!id) {
+      if (!event.shiftKey) {
+        setSelectedIcons([]);
+      }
+      return;
+    }
+
+    if (event.shiftKey) {
+      setSelectedIcons((icons) => (icons.includes(id) ? icons : [...icons, id]));
+    } else {
+      setSelectedIcons([id]);
+    }
   };
 
   return (
     <div
       className="h-screen w-screen flex flex-col items-center bg-[url(assets/images/wallpaper.png)] bg-cover bg-center"
-      onClick={() => handleIconClick(null)}
+      onClick={(event) => handleIconClick(event, null)}
     >
       <div className="grid grid-cols-8 gap-4">
         {folderIcons.map((icon) => (
           <FolderIcon
+            onClick={(event) => handleIconClick(event, icon.id)}
             key={icon.id}
             name={icon.name}
-            isSelected={selectedIcon === icon.id}
-            onClick={() => handleIconClick(icon.id)}
+            isSelected={selectedIcons.includes(icon.id)}
           />
         ))}
       </div>
