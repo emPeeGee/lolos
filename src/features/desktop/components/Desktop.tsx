@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { FolderIcon } from './FolderIcon';
+import { FileIcon } from './FileIcon';
 
-const folderIcons = [
-  { id: 1, name: 'Icon 1' },
-  { id: 2, name: 'Icon 2' },
-  { id: 3, name: 'Icon 3' },
-  { id: 4, name: 'Icon 4' },
-  { id: 5, name: 'Icon 5' },
-  { id: 6, name: 'Icon 6' },
-  { id: 7, name: 'Icon 7' },
-  { id: 8, name: 'Icon 8' },
+const desktopItems = [
+  { id: 1, name: 'Folder 1', type: 'folder' },
+  { id: 2, name: 'File 1', type: 'file' },
+  { id: 3, name: 'Folder 2', type: 'folder' },
+  { id: 4, name: 'File 2', type: 'file' },
 ];
 
 function Desktop() {
@@ -36,14 +33,23 @@ function Desktop() {
       onClick={(event) => handleIconClick(event, null)}
     >
       <div className="grid grid-cols-8 gap-4">
-        {folderIcons.map((icon) => (
-          <FolderIcon
-            onClick={(event) => handleIconClick(event, icon.id)}
-            key={icon.id}
-            name={icon.name}
-            isSelected={selectedIcons.includes(icon.id)}
-          />
-        ))}
+        {desktopItems.map((item) =>
+          item.type === 'folder' ? (
+            <FolderIcon
+              onClick={(event) => handleIconClick(event, item.id)}
+              key={item.id}
+              name={item.name}
+              isSelected={selectedIcons.includes(item.id)}
+            />
+          ) : (
+            <FileIcon
+              onClick={(event) => handleIconClick(event, item.id)}
+              key={item.id}
+              name={item.name}
+              isSelected={selectedIcons.includes(item.id)}
+            />
+          ),
+        )}
       </div>
     </div>
   );
