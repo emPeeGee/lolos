@@ -18,10 +18,10 @@ export const useDesktopStore = create<DesktopState>()(
   devtools(
     (set, get) => ({
       desktopIcons: [
-        { id: 1, name: 'Folder 1', type: 'folder' },
-        { id: 2, name: 'File 1', type: 'file' },
-        { id: 3, name: 'Folder 2', type: 'folder' },
-        { id: 4, name: 'File 2', type: 'file' },
+        { id: 1, name: 'Folder 1', type: 'folder', position: { x: 0, y: 0 } },
+        { id: 2, name: 'File 1', type: 'file', position: { x: 100, y: 0 } },
+        { id: 3, name: 'Folder 2', type: 'folder', position: { x: 200, y: 0 } },
+        { id: 4, name: 'File 2', type: 'file', position: { x: 300, y: 0 } },
       ],
       selectedIcons: [],
       setDesktopIcons: (icons) => set({ desktopIcons: icons }, undefined, 'setDesktopIcons'),
@@ -43,18 +43,17 @@ export const useDesktopStore = create<DesktopState>()(
         const { desktopIcons } = get();
         const selectedIcons = desktopIcons
           .filter((icon) => {
-            const iconElement = document.getElementById(`icon-${icon.id}`);
-            if (!iconElement) return false;
-            const rect = iconElement.getBoundingClientRect();
+            const { x, y } = icon.position;
+            const iconWidth = 100;
+            const iconHeight = 100;
             return (
-              rect.left >= Math.min(startX, endX) &&
-              rect.right <= Math.max(startX, endX) &&
-              rect.top >= Math.min(startY, endY) &&
-              rect.bottom <= Math.max(startY, endY)
+              x + iconWidth >= Math.min(startX, endX) &&
+              x <= Math.max(startX, endX) &&
+              y + iconHeight >= Math.min(startY, endY) &&
+              y <= Math.max(startY, endY)
             );
           })
           .map((icon) => icon.id);
-        console.log(selectedIcons);
         set({ selectedIcons }, undefined, 'selectIconsInRectangle');
       },
     }),

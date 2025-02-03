@@ -18,5 +18,7 @@ export function MarqueeSelection({ startX, startY, endX, endY }: MarqueeSelectio
     height,
   };
 
-  return <div className="absolute border-1 border-black bg-black/10 select-none" style={style} />;
+  return (
+    <div className="absolute border-1 border-blue-500 bg-blue-200/10 select-none" style={style} />
+  );
 }

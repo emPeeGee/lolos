@@ -4,8 +4,14 @@ import { IconFactory } from './IconFactory';
 import { MarqueeSelection } from '../MarqueeSelection';
 
 export function DesktopIcons() {
-  const { desktopIcons, selectedIcons, setSelectedIcons, addSelectedIcon, clearSelectedIcons } =
-    useDesktopStore();
+  const {
+    desktopIcons,
+    selectedIcons,
+    setSelectedIcons,
+    addSelectedIcon,
+    clearSelectedIcons,
+    selectIconsInRectangle,
+  } = useDesktopStore();
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectionStart, setSelectionStart] = useState({ x: 0, y: 0 });
   const [selectionEnd, setSelectionEnd] = useState({ x: 0, y: 0 });
@@ -25,12 +31,13 @@ export function DesktopIcons() {
     if (isSelecting) {
       event.preventDefault();
       setSelectionEnd({ x: event.clientX, y: event.clientY });
+      selectIconsInRectangle(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y);
     }
   };
 
   const handleMouseUp = () => {
     setIsSelecting(false);
-    // selectIconsInRectangle(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y);
+    selectIconsInRectangle(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y);
   };
 
   const handleIconClick = (event: React.MouseEvent, id: number | null) => {
@@ -56,17 +63,19 @@ export function DesktopIcons() {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
-      <div onMouseDown={(event) => handleIconClick(event, null)}>
-        <div className="grid grid-cols-8 gap-4">
-          {desktopIcons.map((icon) => (
+      <div className="relative" onMouseDown={(event) => handleIconClick(event, null)}>
+        {desktopIcons.map((icon) => (
+          <div
+            key={icon.id}
+            style={{ position: 'absolute', left: icon.position.x, top: icon.position.y }}
+          >
             <IconFactory
               icon={icon}
-              key={icon.id}
               isSelected={selectedIcons.includes(icon.id)}
               onClick={(event) => handleIconClick(event, icon.id)}
             />
-          ))}
-        </div>
+          </div>
+        ))}
         {isSelecting && (
           <MarqueeSelection
             startX={selectionStart.x}
