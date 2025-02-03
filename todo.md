@@ -6,3 +6,5 @@
 6. [ ] Icon as a standalone feature
 7. [ ] Top Menu Bar implementation.
 8. [ ] Settings app implementation.
+9. [ ] Accent color in the menubar, selected text, marquee
+10. [ ] Time and date in the menubar
