@@ -17,7 +17,7 @@ export const MenuBar = () => {
   };
 
   return (
-    <div className="macos-header w-screen flex justify-between items-center px-4 select-none">
+    <div className="macos-header w-screen flex justify-between items-center px-4 select-none h-12">
       <div className="flex space-x-4">
         {menuItems.map(({ label, submenu }) => (
           <div
