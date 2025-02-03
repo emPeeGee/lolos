@@ -51,7 +51,7 @@ export function DesktopIcons() {
 
   return (
     <div
-      className="h-screen w-screen relative select-none"
+      className="w-screen h-full relative select-none"
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

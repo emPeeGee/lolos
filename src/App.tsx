@@ -2,8 +2,8 @@ import { Desktop } from './features/desktop';
 
 function App() {
   return (
-    <div className="h-screen w-screen ">
-      <div className="flex justify-center items-center h-full">
+    <div className="h-full w-screen relative">
+      <div className="h-full w-screen flex justify-center items-center">
         <Desktop />
       </div>
     </div>
