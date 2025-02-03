@@ -5,6 +5,7 @@ import { Icon } from '@/types';
 interface DesktopState {
   desktopIcons: Icon[];
   selectedIcons: number[];
+  // TODO: check the usage
   setDesktopIcons: (icons: Icon[]) => void;
   setSelectedIcons: (icons: number[]) => void;
   addSelectedIcon: (id: number) => void;
