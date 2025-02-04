@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useDesktopStore } from '../../store/desktopStore';
 import { IconFactory } from './IconFactory';
 import { MarqueeSelection } from '../MarqueeSelection';
+import { UI_CONFIG } from '@/config';
 
 export function DesktopIcons() {
   const {
@@ -16,14 +17,11 @@ export function DesktopIcons() {
   const [selectionStart, setSelectionStart] = useState({ x: 0, y: 0 });
   const [selectionEnd, setSelectionEnd] = useState({ x: 0, y: 0 });
 
-  // TODO: move into constants and use in menubar
-  const menuBarHeight = 48;
-
   const handleMouseDown = (event: React.MouseEvent) => {
     event.preventDefault();
     setIsSelecting(true);
-    setSelectionStart({ x: event.clientX, y: event.clientY - menuBarHeight });
-    setSelectionEnd({ x: event.clientX, y: event.clientY - menuBarHeight });
+    setSelectionStart({ x: event.clientX, y: event.clientY - UI_CONFIG.MENU_BAR_HEIGHT });
+    setSelectionEnd({ x: event.clientX, y: event.clientY - UI_CONFIG.MENU_BAR_HEIGHT });
 
     if (!event.shiftKey) {
       clearSelectedIcons();
@@ -33,7 +31,7 @@ export function DesktopIcons() {
   const handleMouseMove = (event: React.MouseEvent) => {
     if (isSelecting) {
       event.preventDefault();
-      setSelectionEnd({ x: event.clientX, y: event.clientY - menuBarHeight });
+      setSelectionEnd({ x: event.clientX, y: event.clientY - UI_CONFIG.MENU_BAR_HEIGHT });
     }
   };
 

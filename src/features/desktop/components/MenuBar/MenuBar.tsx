@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { UI_CONFIG } from '@/config';
 // import { Battery, Wifi, Clock } from 'lucide-react';
 
 const menuItems = [
@@ -17,7 +18,10 @@ export const MenuBar = () => {
   };
 
   return (
-    <div className="macos-header w-screen flex justify-between items-center px-4 select-none h-12">
+    <div
+      style={{ height: UI_CONFIG.MENU_BAR_HEIGHT }}
+      className="macos-header w-screen flex justify-between items-center px-4 select-none"
+    >
       <div className="flex space-x-4">
         {menuItems.map(({ label, submenu }) => (
           <div
