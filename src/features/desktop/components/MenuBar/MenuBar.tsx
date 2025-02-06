@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { UI_CONFIG } from '@/config';
+import { useOnClickOutside } from '@/hooks';
 // import { Battery, Wifi, Clock } from 'lucide-react';
 
 const menuItems = [
@@ -11,18 +12,24 @@ const menuItems = [
 ];
 
 export const MenuBar = () => {
+  const appMenuRef = useRef<HTMLDivElement>(null);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const handleMenuClick = (label: string) => {
     setActiveMenu(activeMenu === label ? null : label);
   };
 
+  useOnClickOutside(appMenuRef, () => {
+    console.log('click outisde');
+    setActiveMenu(null);
+  });
+
   return (
     <div
       style={{ height: UI_CONFIG.MENU_BAR_HEIGHT }}
       className="macos-header w-screen flex justify-between items-center px-4 select-none"
     >
-      <div className="flex space-x-4">
+      <div className="flex space-x-4" ref={appMenuRef}>
         {menuItems.map(({ label, submenu }) => (
           <div
             key={label}
