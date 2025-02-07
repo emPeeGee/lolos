@@ -12,17 +12,19 @@ export function Icon({ icon: { id, name }, isSelected, onClick, onDoubleClick, s
   return (
     <div
       id={`icon-${id}`}
-      className={`flex flex-col items-center`}
+      className={`flex flex-col items-center gap-1`}
       onClick={(e) => {
         e.stopPropagation();
         onClick(e);
       }}
       onDoubleClick={onDoubleClick}
+      draggable
     >
       <img
         src={src}
         alt={name}
-        className={`h-16 mb-1 bg-contain bg-center ${isSelected ? 'bg-blue-500' : ''}`}
+        className={`h-16 bg-contain bg-center ${isSelected ? 'bg-blue-500' : ''}`}
+        draggable={false}
       />
       <div
         className={`w-fit text-center text-white ${isSelected ? 'bg-blue-500' : ''} select-none`}

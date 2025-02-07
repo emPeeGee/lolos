@@ -7,6 +7,7 @@ interface DesktopState {
   selectedIcons: number[];
   // TODO: check the usage
   setDesktopIcons: (icons: Icon[]) => void;
+  updateDesktopIconCoords: (icon: Icon, options: { x: number; y: number }) => void;
   setSelectedIcons: (icons: number[]) => void;
   addSelectedIcon: (id: number) => void;
   removeSelectedIcon: (id: number) => void;
@@ -25,6 +26,17 @@ export const useDesktopStore = create<DesktopState>()(
       ],
       selectedIcons: [],
       setDesktopIcons: (icons) => set({ desktopIcons: icons }, undefined, 'setDesktopIcons'),
+      updateDesktopIconCoords: (icon: Icon, { x, y }) =>
+        set(
+          (state) => {
+            const icons = state.desktopIcons.map((ic) =>
+              ic.id === icon.id ? { ...icon, position: { x, y } } : ic,
+            );
+            return { desktopIcons: icons };
+          },
+          undefined,
+          'updateDesktopIcons',
+        ),
       setSelectedIcons: (icons) => set({ selectedIcons: icons }, undefined, 'setSelectedIcons'),
       addSelectedIcon: (id) =>
         set(
