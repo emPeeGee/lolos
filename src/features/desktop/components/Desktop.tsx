@@ -1,5 +1,6 @@
 import { DesktopIcons } from './DesktopIcons/DesktopIcons';
 import { MenuBar } from '@/features/desktop/components/MenuBar/MenuBar.tsx';
+import { Window } from '@/features/window';
 
 export function Desktop() {
   return (
@@ -7,6 +8,8 @@ export function Desktop() {
       <div className="flex flex-col h-full">
         <MenuBar />
         <DesktopIcons />
+
+        <Window />
       </div>
       {/* <Dock /> */}
     </div>
