@@ -29,11 +29,11 @@ export const MenuBar = () => {
       style={{ height: UI_CONFIG.MENU_BAR_HEIGHT }}
       className="macos-header w-screen flex justify-between items-center px-4 select-none"
     >
-      <div className="flex space-x-4" ref={appMenuRef}>
+      <div className="flex space-x-4 " ref={appMenuRef}>
         {menuItems.map(({ label, submenu }) => (
           <div
             key={label}
-            className={`relative rounded-sm ${activeMenu === label ? 'bg-zinc-400' : ''}`}
+            className={`relative rounded-md ${activeMenu === label ? 'bg-[rgb(0,0,0)]/20 ' : ''}`}
           >
             <button
               className="text-sm px-2"
@@ -50,10 +50,13 @@ export const MenuBar = () => {
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
-                className="absolute z-10 left-0 w-48 bg-zinc-300 shadow-lg rounded-md overflow-hidden"
+                className="absolute z-10 left-0 w-48 shadow-lg rounded-md overflow-hidden backdrop-blur-md bg-zinc-100/60"
               >
                 {submenu.map((item) => (
-                  <li key={item} className="text-sm px-4 py-1 hover:bg-zinc-500 cursor-pointer">
+                  <li
+                    key={item}
+                    className="text-sm px-4 py-1 hover:bg-[rgb(0,0,0)]/20 cursor-pointer"
+                  >
                     {item}
                   </li>
                 ))}

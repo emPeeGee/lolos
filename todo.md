@@ -1,10 +1,20 @@
-1. [ ] Mouse selection effect
-2. [ ] Selected color should be defined somewhere, as like mac os does, not hardcoded, and not so pronounced
-3. [ ] Drag folders/files on desktop
-4. [ ] Click outside removes selected
-5. [ ] Handle keyboard event like enter, arrows
-6. [ ] Icon as a standalone feature
-7. [ ] Top Menu Bar implementation.
-8. [ ] Settings app implementation.
-9. [ ] Accent color in the menubar, selected text, marquee
-10. [ ] Time and date in the menubar
+# Todo
+
+## Features
+
+1. [ ] Windows
+2. [x] Mouse selection effect
+3. [ ] Selected color should be defined somewhere, as like mac os does, not hardcoded, and not so pronounced
+4. [ ] Drag folders/files on desktop
+5. [ ] Click outside removes selected
+6. [ ] Handle keyboard event like enter, arrows
+7. [ ] Icon as a standalone feature
+8. [ ] Top Menu Bar implementation.
+9. [ ] Settings app implementation.
+10. [ ] Accent color in the menubar, selected text, marquee
+11. [ ] Time and date in the menubar
+12. [ ] Icon drag when multiple are selected
+
+## Bugs
+
+1. [ ] Dragged icon is not immediately dropped

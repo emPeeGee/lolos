@@ -1,3 +1,3 @@
 export const UI_CONFIG = {
-  MENU_BAR_HEIGHT: 20,
+  MENU_BAR_HEIGHT: 24,
 };
