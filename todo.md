@@ -14,6 +14,9 @@
 10. [ ] Accent color in the menubar, selected text, marquee
 11. [ ] Time and date in the menubar
 12. [ ] Icon drag when multiple are selected
+13. [ ] Docks, only opened windows will be in there
+14. [ ] Task manager with opened apps
+15. [ ] Open linked in or github in Iframe ???
 
 ## Bugs
 

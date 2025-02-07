@@ -1,36 +1,8 @@
-import { useState } from 'react';
 import { Window } from './Window';
-
-interface WindowData {
-  id: number;
-  title: string;
-  minimized: boolean;
-}
+import { useWindowStore } from '../store/windowsStore';
 
 export const WindowManager: React.FC = () => {
-  const [windows, setWindows] = useState<WindowData[]>([]);
-  const [windowCounter, setWindowCounter] = useState(1);
-  const [focusedWindow, setFocusedWindow] = useState<number | null>(null);
-
-  const addWindow = () => {
-    const newWindow: WindowData = {
-      id: windowCounter,
-      title: `Window ${windowCounter}`,
-      minimized: false,
-    };
-    setWindows([...windows, newWindow]);
-    setWindowCounter(windowCounter + 1);
-    setFocusedWindow(newWindow.id);
-  };
-
-  const closeWindow = (id: number) => {
-    setWindows(windows.filter((win) => win.id !== id));
-    if (focusedWindow === id) setFocusedWindow(null);
-  };
-
-  const minimizeWindow = (id: number) => {
-    setWindows(windows.map((win) => (win.id === id ? { ...win, minimized: !win.minimized } : win)));
-  };
+  const { windows, addWindow, restoreWindow } = useWindowStore();
 
   return (
     <div className={`w-screen select-none`}>
@@ -41,16 +13,22 @@ export const WindowManager: React.FC = () => {
         Open New Window
       </button>
 
+      <div className="absolute bottom-2 left-2 flex gap-2">
+        {windows
+          .filter((win) => win.minimized)
+          .map((win) => (
+            <button
+              key={win.id}
+              className="bg-gray-700 text-white px-4 py-2 rounded-md"
+              onClick={() => restoreWindow(win)}
+            >
+              {win.title}
+            </button>
+          ))}
+      </div>
+
       {windows.map((win) => (
-        <Window
-          key={win.id}
-          title={win.title}
-          onClose={() => closeWindow(win.id)}
-          onMinimize={() => minimizeWindow(win.id)}
-          minimized={win.minimized}
-          onFocus={() => setFocusedWindow(win.id)}
-          isFocused={focusedWindow === win.id}
-        />
+        <Window key={win.id} window={win} />
       ))}
     </div>
   );

@@ -1,27 +1,19 @@
 import { MouseEvent, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useWindowStore } from '../store/windowsStore.ts';
+import { Window as WindowType } from '@/types';
 
 interface WindowProps {
-  title: string;
-  onClose: () => void;
-  onMinimize: () => void;
-  minimized: boolean;
-  onFocus: () => void;
-  isFocused: boolean;
+  window: WindowType;
 }
 
-export const Window = ({
-  title,
-  onClose,
-  onMinimize,
-  minimized,
-  onFocus,
-  isFocused,
-}: WindowProps) => {
+export const Window = ({ window }: WindowProps) => {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [size, setSize] = useState({ width: 500, height: 300 });
   const windowRef = useRef<HTMLDivElement>(null);
   const isResizing = useRef(false);
+
+  const { closeWindow, minimizeWindow, setFocusedWindow, focusedWindow } = useWindowStore();
 
   const handleDrag = (event: globalThis.MouseEvent) => {
     if (!isResizing.current) {
@@ -48,9 +40,9 @@ export const Window = ({
         top: position.y,
         width: size.width,
         height: size.height,
-        zIndex: isFocused ? 10 : 5,
+        zIndex: focusedWindow === window.id ? 10 : 5,
       }}
-      onMouseDown={onFocus}
+      onMouseDown={() => setFocusedWindow(window)}
       onMouseMove={(event) => isResizing.current && handleResize(event)}
     >
       {/* Window Header (Mac OS X Lion Style) */}
@@ -69,16 +61,16 @@ export const Window = ({
         <div className="flex gap-2">
           <button
             className="w-3 h-3 bg-red-500 rounded-full border border-red-700"
-            onClick={onClose}
+            onClick={() => closeWindow(window)}
           />
           <button
             className="w-3 h-3 bg-yellow-500 rounded-full border border-yellow-700"
-            onClick={() => onMinimize()}
+            onClick={() => minimizeWindow(window)}
           />
           <button className="w-3 h-3 bg-green-500 rounded-full border border-green-700" />
         </div>
 
-        <span className="text-sm text-gray-700 font-semibold">{title}</span>
+        <span className="text-sm text-gray-700 font-semibold">{window.title}</span>
 
         <div className="w-10"></div>
       </div>
@@ -86,7 +78,7 @@ export const Window = ({
       <div className="p-4 text-gray-700">
         <p>📂 This is a Mac OS X Lion-style window.</p>
         <p>Try dragging or resizing it!</p>
-        <p>Minimized : {minimized ? 'Yes' : 'No'} </p>
+        <p>Minimized : {window.minimized ? 'Yes' : 'No'} </p>
       </div>
 
       <div
